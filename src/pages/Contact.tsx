@@ -1,14 +1,15 @@
-import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import Header from '../components/Header';
 
 export default function Contact() {
-  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     subject: '',
     message: ''
   });
+
+  const [submitted, setSubmitted] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -20,149 +21,195 @@ export default function Contact() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Aquí puedes enviar el formulario a un servidor o servicio de email
     console.log('Formulario enviado:', formData);
-    alert('Mensaje enviado correctamente');
-    setFormData({ name: '', email: '', subject: '', message: '' });
+    setSubmitted(true);
+    setTimeout(() => {
+      setFormData({ name: '', email: '', subject: '', message: '' });
+      setSubmitted(false);
+    }, 3000);
   };
 
+  const contactMethods = [
+    {
+      icon: '✉️',
+      title: 'Email',
+      value: 'evelyn.patricia.naranjo.correa@gmail.com',
+      link: 'mailto:evelyn.patricia.naranjo.correa@gmail.com',
+      color: 'from-indigo-500 to-blue-500'
+    },
+    {
+      icon: '💼',
+      title: 'LinkedIn',
+      value: 'linkedin.com/in/evelynnaranjo',
+      link: 'https://linkedin.com/in/evelynnaranjo',
+      color: 'from-blue-500 to-cyan-500'
+    },
+    {
+      icon: '💬',
+      title: 'WhatsApp',
+      value: '+593 9 XXXXXXXX',
+      link: 'https://wa.me/593',
+      color: 'from-green-500 to-emerald-500'
+    }
+  ];
+
   return (
-    <main className="min-h-screen bg-amber-50 text-amber-900">
-      {/* Header con Menú */}
-      <nav className="bg-amber-100 border-b border-amber-300 px-6 py-4">
-        <div className="max-w-6xl mx-auto flex items-center justify-between">
-          <button
-            onClick={() => navigate('/')}
-            className="text-2xl font-bold text-amber-900 hover:text-amber-700 transition"
-          >
-            Evelyn Naranjo
-          </button>
-          <div className="flex gap-6">
-            <button
-              onClick={() => navigate('/')}
-              className="text-amber-900 font-semibold hover:text-amber-700 transition"
-            >
-              Inicio
-            </button>
-            <button
-              onClick={() => navigate('/contacto')}
-              className="text-amber-700 font-semibold border-b-2 border-amber-700"
-            >
-              Contacto
-            </button>
+    <>
+      <Header />
+
+      <main className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 text-white relative overflow-hidden pt-8">
+        {/* Animated background elements */}
+        <div className="absolute top-0 right-0 w-96 h-96 bg-indigo-600/20 rounded-full blur-3xl pointer-events-none animate-pulse"></div>
+        <div className="absolute bottom-0 left-0 w-96 h-96 bg-violet-600/20 rounded-full blur-3xl pointer-events-none animate-pulse" style={{ animationDelay: '1s' }}></div>
+
+        <div className="max-w-6xl mx-auto py-24 px-6 relative z-10">
+          {/* Header */}
+          <div className="mb-20 text-center">
+            <h1 className="text-5xl md:text-7xl font-black mb-6">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-violet-400 to-pink-400">
+                Hablemos
+              </span>
+            </h1>
+            <p className="text-xl text-slate-300 max-w-2xl mx-auto">
+              ¿Tienes un proyecto en mente? Me encantaría escuchar tus ideas y ayudarte a hacerlas realidad.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8 mb-20">
+            {contactMethods.map((method, idx) => (
+              <a
+                key={method.title}
+                href={method.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group relative"
+                style={{
+                  animation: `fadeInUp 0.5s ease-out ${idx * 0.1}s forwards`,
+                  opacity: 0
+                }}
+              >
+                <div className={`bg-gradient-to-br ${method.color} p-0.5 rounded-2xl transform hover:scale-105 transition-all duration-300`}>
+                  <div className="bg-slate-900 rounded-2xl p-8 flex flex-col items-center text-center h-full group-hover:bg-slate-800/50 transition-colors relative overflow-hidden">
+                    {/* Glow background */}
+                    <div className={`absolute -inset-full bg-gradient-to-br ${method.color} opacity-0 group-hover:opacity-20 transition-opacity duration-300 blur-2xl`}></div>
+                    
+                    <div className="text-5xl mb-4 relative z-10">{method.icon}</div>
+                    <h3 className="text-xl font-bold mb-2 relative z-10">{method.title}</h3>
+                    <p className="text-slate-300 text-sm relative z-10 break-all">{method.value}</p>
+                    <div className="mt-4 text-indigo-400 font-bold text-sm relative z-10 group-hover:translate-x-2 transition-transform">
+                      Contactar →
+                    </div>
+                  </div>
+                </div>
+              </a>
+            ))}
+          </div>
+
+          {/* Form Section */}
+          <div className="max-w-2xl mx-auto">
+            <div className="bg-gradient-to-br from-indigo-500/10 via-violet-500/10 to-pink-500/10 border border-slate-700/50 rounded-3xl backdrop-blur-xl p-8 md:p-12 shadow-2xl">
+              <h2 className="text-3xl font-black mb-8 text-center">
+                Envía tu mensaje
+              </h2>
+
+              {submitted ? (
+                <div className="flex flex-col items-center justify-center py-12">
+                  <div className="text-6xl mb-4 animate-bounce">✨</div>
+                  <h3 className="text-2xl font-bold mb-2">¡Mensaje enviado!</h3>
+                  <p className="text-slate-300 text-center">Gracias por tu mensaje. Me pondré en contacto pronto.</p>
+                </div>
+              ) : (
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  {/* Nombre */}
+                  <div>
+                    <label htmlFor="name" className="block text-sm font-bold uppercase tracking-wider text-slate-300 mb-3">
+                      Nombre
+                    </label>
+                    <input
+                      type="text"
+                      id="name"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleChange}
+                      required
+                      placeholder="Tu nombre completo"
+                      className="w-full px-6 py-3 bg-slate-800/50 border border-slate-700/50 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all backdrop-blur-sm"
+                    />
+                  </div>
+
+                  {/* Email */}
+                  <div>
+                    <label htmlFor="email" className="block text-sm font-bold uppercase tracking-wider text-slate-300 mb-3">
+                      Email
+                    </label>
+                    <input
+                      type="email"
+                      id="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      required
+                      placeholder="tu.email@ejemplo.com"
+                      className="w-full px-6 py-3 bg-slate-800/50 border border-slate-700/50 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all backdrop-blur-sm"
+                    />
+                  </div>
+
+                  {/* Asunto */}
+                  <div>
+                    <label htmlFor="subject" className="block text-sm font-bold uppercase tracking-wider text-slate-300 mb-3">
+                      Asunto
+                    </label>
+                    <input
+                      type="text"
+                      id="subject"
+                      name="subject"
+                      value={formData.subject}
+                      onChange={handleChange}
+                      required
+                      placeholder="¿Sobre qué es tu mensaje?"
+                      className="w-full px-6 py-3 bg-slate-800/50 border border-slate-700/50 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all backdrop-blur-sm"
+                    />
+                  </div>
+
+                  {/* Mensaje */}
+                  <div>
+                    <label htmlFor="message" className="block text-sm font-bold uppercase tracking-wider text-slate-300 mb-3">
+                      Mensaje
+                    </label>
+                    <textarea
+                      id="message"
+                      name="message"
+                      value={formData.message}
+                      onChange={handleChange}
+                      required
+                      rows={6}
+                      placeholder="Cuéntame sobre tu proyecto, idea o lo que tengas en mente..."
+                      className="w-full px-6 py-3 bg-slate-800/50 border border-slate-700/50 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all backdrop-blur-sm resize-none"
+                    />
+                  </div>
+
+                  {/* Botón */}
+                  <button
+                    type="submit"
+                    className="w-full group relative bg-gradient-to-r from-indigo-500 via-violet-500 to-pink-500 text-white font-black py-4 rounded-xl hover:shadow-2xl hover:shadow-violet-500/50 transition-all transform hover:scale-105 uppercase tracking-wider text-sm overflow-hidden"
+                  >
+                    <span className="relative z-10 flex items-center justify-center gap-2">
+                      Enviar mensaje
+                      <span className="group-hover:translate-x-2 transition-transform">↗</span>
+                    </span>
+                    <div className="absolute inset-0 bg-gradient-to-r from-pink-500 via-violet-500 to-indigo-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-sm group-hover:blur-md"></div>
+                  </button>
+                </form>
+              )}
+            </div>
+
+            {/* Footer Note */}
+            <p className="text-center text-slate-400 text-sm mt-8">
+              También puedes contactarme a través de LinkedIn o WhatsApp para una conversación más rápida.
+            </p>
           </div>
         </div>
-      </nav>
-
-      <div className="max-w-2xl mx-auto py-16 px-6">
-
-        <h1 className="text-5xl md:text-6xl font-bold text-amber-900 mb-4">
-          Contactarme
-        </h1>
-
-        <p className="text-lg text-amber-800 mb-12">
-          Hola, me encantaría saber de ti. Por favor, completa el formulario a continuación y me pondré en contacto contigo lo antes posible.
-        </p>
-
-        {/* Formulario */}
-        <form onSubmit={handleSubmit} className="space-y-6 bg-white p-8 rounded-lg shadow-md">
-          
-          {/* Nombre */}
-          <div>
-            <label htmlFor="name" className="block text-sm font-semibold text-amber-900 mb-2">
-              Nombre
-            </label>
-            <input
-              type="text"
-              id="name"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              required
-              className="w-full px-4 py-3 border border-amber-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-900 text-amber-900 bg-amber-50"
-            //   placeholder="Tu nombre"
-            />
-          </div>
-
-          {/* Email */}
-          <div>
-            <label htmlFor="email" className="block text-sm font-semibold text-amber-900 mb-2">
-              Email
-            </label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              required
-              className="w-full px-4 py-3 border border-amber-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-900 text-amber-900 bg-amber-50"
-              //   placeholder="tu.email@ejemplo.com"
-            />
-          </div>
-
-          {/* Asunto */}
-          <div>
-            <label htmlFor="subject" className="block text-sm font-semibold text-amber-900 mb-2">
-              Asunto
-            </label>
-            <input
-              type="text"
-              id="subject"
-              name="subject"
-              value={formData.subject}
-              onChange={handleChange}
-              required
-              className="w-full px-4 py-3 border border-amber-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-900 text-amber-900 bg-amber-50"
-              //   placeholder="Asunto del mensaje"
-            />
-          </div>
-
-          {/* Mensaje */}
-          <div>
-            <label htmlFor="message" className="block text-sm font-semibold text-amber-900 mb-2">
-              Mensaje
-            </label>
-            <textarea
-              id="message"
-              name="message"
-              value={formData.message}
-              onChange={handleChange}
-              required
-              rows={6}
-              className="w-full px-4 py-3 border border-amber-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-900 text-amber-900 bg-amber-50 resize-none"
-              //   placeholder="Cuéntame sobre tu proyecto..."
-            />
-          </div>
-
-          {/* Botón */}
-          <button
-            type="submit"
-            className="w-full bg-amber-700 text-white font-semibold py-3 rounded-lg hover:bg-amber-800 transition"
-          >
-            Enviar mensaje
-          </button>
-        </form>
-
-        {/* Contacto alternativo */}
-        <div className="mt-12 text-center">
-          <p className="text-amber-800 mb-4">O contáctame directamente:</p>
-          <div className="flex flex-col sm:flex-row justify-center gap-6">
-            <a 
-              href="mailto:tu.email@ejemplo.com" 
-              className="text-amber-700 font-semibold hover:text-amber-900 transition"
-            >
-              evelyn.patricia.naranjo.correa@gmail.com
-            </a>
-            <a 
-              href="tel:+1234567890" 
-              className="text-amber-700 font-semibold hover:text-amber-900 transition"
-            >
-              📱 +593 99-304-1323
-            </a>
-          </div>
-        </div>
-      </div>
-    </main>
+      </main>
+    </>
   );
 }
