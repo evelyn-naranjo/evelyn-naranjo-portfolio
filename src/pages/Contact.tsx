@@ -27,22 +27,41 @@ export default function Contact() {
   };
 
   return (
-    <main className="min-h-screen bg-amber-50 text-amber-900 py-16 px-6">
-      <div className="max-w-2xl mx-auto">
-        {/* Header */}
-        <button
-          onClick={() => navigate('/')}
-          className="mb-8 px-4 py-2 rounded-lg bg-amber-700 text-white hover:bg-amber-800 transition font-semibold"
-        >
-          ← Volver
-        </button>
+    <main className="min-h-screen bg-amber-50 text-amber-900">
+      {/* Header con Menú */}
+      <nav className="bg-amber-100 border-b border-amber-300 px-6 py-4">
+        <div className="max-w-6xl mx-auto flex items-center justify-between">
+          <button
+            onClick={() => navigate('/')}
+            className="text-2xl font-bold text-amber-900 hover:text-amber-700 transition"
+          >
+            Evelyn Naranjo
+          </button>
+          <div className="flex gap-6">
+            <button
+              onClick={() => navigate('/')}
+              className="text-amber-900 font-semibold hover:text-amber-700 transition"
+            >
+              Inicio
+            </button>
+            <button
+              onClick={() => navigate('/contacto')}
+              className="text-amber-700 font-semibold border-b-2 border-amber-700"
+            >
+              Contacto
+            </button>
+          </div>
+        </div>
+      </nav>
+
+      <div className="max-w-2xl mx-auto py-16 px-6">
 
         <h1 className="text-5xl md:text-6xl font-bold text-amber-900 mb-4">
           Contactarme
         </h1>
 
         <p className="text-lg text-amber-800 mb-12">
-          ¿Tienes un proyecto en mente? Me encantaría escucharte. Completa el formulario y me pondré en contacto pronto.
+          Hola, me encantaría saber de ti. Por favor, completa el formulario a continuación y me pondré en contacto contigo lo antes posible.
         </p>
 
         {/* Formulario */}
@@ -60,8 +79,8 @@ export default function Contact() {
               value={formData.name}
               onChange={handleChange}
               required
-              className="w-full px-4 py-3 border border-amber-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-700 text-amber-900 bg-amber-50"
-              placeholder="Tu nombre"
+              className="w-full px-4 py-3 border border-amber-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-900 text-amber-900 bg-amber-50"
+            //   placeholder="Tu nombre"
             />
           </div>
 
@@ -77,8 +96,8 @@ export default function Contact() {
               value={formData.email}
               onChange={handleChange}
               required
-              className="w-full px-4 py-3 border border-amber-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-700 text-amber-900 bg-amber-50"
-              placeholder="tu.email@ejemplo.com"
+              className="w-full px-4 py-3 border border-amber-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-900 text-amber-900 bg-amber-50"
+              //   placeholder="tu.email@ejemplo.com"
             />
           </div>
 
@@ -94,8 +113,8 @@ export default function Contact() {
               value={formData.subject}
               onChange={handleChange}
               required
-              className="w-full px-4 py-3 border border-amber-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-700 text-amber-900 bg-amber-50"
-              placeholder="Asunto del mensaje"
+              className="w-full px-4 py-3 border border-amber-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-900 text-amber-900 bg-amber-50"
+              //   placeholder="Asunto del mensaje"
             />
           </div>
 
@@ -111,8 +130,8 @@ export default function Contact() {
               onChange={handleChange}
               required
               rows={6}
-              className="w-full px-4 py-3 border border-amber-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-700 text-amber-900 bg-amber-50 resize-none"
-              placeholder="Cuéntame sobre tu proyecto..."
+              className="w-full px-4 py-3 border border-amber-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-900 text-amber-900 bg-amber-50 resize-none"
+              //   placeholder="Cuéntame sobre tu proyecto..."
             />
           </div>
 
@@ -133,13 +152,13 @@ export default function Contact() {
               href="mailto:tu.email@ejemplo.com" 
               className="text-amber-700 font-semibold hover:text-amber-900 transition"
             >
-              📧 tu.email@ejemplo.com
+              evelyn.patricia.naranjo.correa@gmail.com
             </a>
             <a 
               href="tel:+1234567890" 
               className="text-amber-700 font-semibold hover:text-amber-900 transition"
             >
-              📱 +1 (234) 567-890
+              📱 +593 99-304-1323
             </a>
           </div>
         </div>

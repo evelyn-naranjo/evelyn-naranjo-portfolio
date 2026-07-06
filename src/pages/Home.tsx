@@ -4,7 +4,34 @@ export default function Home() {
   const navigate = useNavigate();
 
   return (
-    <main className="min-h-screen bg-amber-50 text-amber-900 flex items-center justify-center px-6">
+    <>
+      {/* Header con Menú */}
+      <nav className="bg-amber-100 border-b border-amber-300 px-6 py-4">
+        <div className="max-w-6xl mx-auto flex items-center justify-between">
+          <button
+            onClick={() => navigate('/')}
+            className="text-2xl font-bold text-amber-900 hover:text-amber-700 transition"
+          >
+            Evelyn Naranjo
+          </button>
+          <div className="flex gap-6">
+            <button
+              onClick={() => navigate('/')}
+              className="text-amber-900 font-semibold hover:text-amber-700 transition border-b-2 border-amber-100"
+            >
+              Inicio
+            </button>
+            <button
+              onClick={() => navigate('/contacto')}
+              className="text-amber-900 font-semibold hover:text-amber-700 transition"
+            >
+              Contacto
+            </button>
+          </div>
+        </div>
+      </nav>
+
+      <main className="min-h-screen bg-amber-50 text-amber-900 flex items-center justify-center px-6">
       <section className="max-w-4xl text-center">
         <p className="mb-4 text-sm uppercase tracking-[0.4em] text-amber-700 md:text-base">
           Portafolio profesional
@@ -35,5 +62,6 @@ export default function Home() {
         </div>
       </section>
     </main>
+    </>
   );
 }
