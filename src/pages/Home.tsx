@@ -22,19 +22,19 @@ export default function Home() {
 
         {/* Hero Section */}
         <section className="min-h-screen flex items-center justify-center">
-          <div className="flex items-center justify-center">
+          <div className="flex items-center justify-center px-10">
             {/* Left Content */}
             <div>
           
 
               {/* Main Heading */}
-              <h1 className="font-shadows  text-6xl md:text-7xl font-medium mb-5 leading-tight tracking-[0.3rem]">
+              <h1 className="font-shadows  text-4xl md:text-7xl font-medium mb-5 leading-tight tracking-[0.3rem]">
                 <span className="block text-white">Mobile Developer | Full Stack Developer</span>
             
               </h1>
 
               {/* Subheading */}
-              <p className="text-base md:text-base text-slate-300 mb-2 leading-relaxed font-source-code-pro flex flex-wrap items-center justify-center gap-x-3 gap-y-2" >
+              <p className="text-sm md:text-base text-slate-300 mb-2 leading-relaxed font-source-code-pro flex flex-wrap items-center justify-center gap-x-3 gap-y-2" >
               {'{ Flutter - Vue.js - React - Laravel - Express.js - FastAPI - Firebase - PostgreSQL }'}
               </p>
 

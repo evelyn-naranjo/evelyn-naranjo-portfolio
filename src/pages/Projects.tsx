@@ -123,11 +123,11 @@ export default function Projects() {
       <div className="max-w-7xl mx-auto py-8 px-6 relative z-10">
         {/* Hero Section */}
         <div className="mb-8">
-          <h1 className="text-6xl md:text-7xl font-shadows text-white mb-2 leading-tight">
+          <h1 className="text-4xl md:text-7xl font-shadows text-white mb-2 leading-tight">
             Mis Proyectos
           </h1>
 
-          <p className="text-base text-slate-300 mb-5 leading-relaxed font-source-code-pro">
+          <p className=" text-sm md:text-base text-slate-300 mb-5 leading-relaxed font-source-code-pro">
             Una colección de trabajos que representan mi dedicación a la <span className="text-white">innovación</span>, la <span className="text-white">calidad</span> y el <span className="text-white">impacto</span>.
           </p>
 

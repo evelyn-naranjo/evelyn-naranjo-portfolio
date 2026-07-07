@@ -31,7 +31,7 @@ export default function ProjectCard({
 
                 <div className=" relative px-8 mt-8 items-center z-10">
                     {/* Title */}
-                    <h2 className="text-2xl lg:text-2xl font-source-code-pro tracking-tight group-hover:translate-y-[-4px] transition-transform text-white">
+                    <h2 className="text-base md:text-2xl lg:text-2xl font-source-code-pro tracking-tight group-hover:translate-y-[-4px] transition-transform text-white">
                         {title}
                     </h2>
                 </div>
@@ -44,7 +44,7 @@ export default function ProjectCard({
 
 
                         {/* Description */}
-                        <p className="text-white/95 mb-6 text-base leading-relaxed font-medium">
+                        <p className="text-white/95 mb-6  text-sm md:text-base  leading-relaxed font-medium">
                             {description}
                         </p>
 
