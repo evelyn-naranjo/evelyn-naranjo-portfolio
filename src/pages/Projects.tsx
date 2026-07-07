@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import Header from '../components/Header';
 import ProjectCard from '../components/ProjectCard';
 
@@ -12,12 +13,13 @@ interface Project {
   description: string;
   technologies: string[];
   links: ProjectLink[];
-  featured: boolean;
   color: string;
   type?: 'web' | 'mobile';
 }
 
 export default function Projects() {
+  const [activeProjectIndex, setActiveProjectIndex] = useState(0);
+
   const projects: Project[] = [
     {
       id: 1,
@@ -28,8 +30,7 @@ export default function Projects() {
         { label: 'Web Admin', url: 'https://adm.beez-delivery.com' },
         { label: 'Play Store - Cliente', url: '#' }
       ],
-      featured: true,
-      color: 'from-indigo-600 to-indigo-700',
+      color: 'from-cyan-800 to-cyan-700',
       type: 'mobile'
     },
     {
@@ -40,7 +41,6 @@ export default function Projects() {
       links: [
         { label: 'Ver Plataforma', url: 'https://suusen.desarrollohumano.gob.ec/' }
       ],
-      featured: true,
       color: 'from-teal-600 to-teal-700',
       type: 'web'
     },
@@ -52,7 +52,6 @@ export default function Projects() {
       links: [
         { label: 'Ver Plataforma', url: 'https://transparenciafiscal.ame.gob.ec/' }
       ],
-      featured: true,
       color: 'from-violet-600 to-violet-700',
       type: 'web'
     },
@@ -65,7 +64,6 @@ export default function Projects() {
         { label: 'Google Play', url: '#' },
         { label: 'App Store', url: '#' }
       ],
-      featured: false,
       color: 'from-rose-600 to-rose-700',
       type: 'mobile'
     },
@@ -75,7 +73,6 @@ export default function Projects() {
       description: 'Aplicación móvil educativa para contextos rurales con conectividad limitada. Contenidos educativos y arquitectura offline-first para acceso sin conexión permanente.',
       technologies: ['Flutter', 'Offline-First', 'SQLite', 'APIs REST'],
       links: [],
-      featured: false,
       color: 'from-cyan-600 to-cyan-700',
       type: 'mobile'
     },
@@ -87,7 +84,6 @@ export default function Projects() {
       links: [
         { label: 'Google Play', url: '#' }
       ],
-      featured: false,
       color: 'from-blue-600 to-blue-700',
       type: 'mobile'
     },
@@ -97,11 +93,23 @@ export default function Projects() {
       description: 'Aplicación móvil para profesores que permite crear y gestionar cuestionarios en tiempo real. Almacenamiento local, sincronización en la nube y diseño centrado en usabilidad.',
       technologies: ['Android Nativo', 'SQLite', 'Firebase'],
       links: [],
-      featured: false,
       color: 'from-amber-600 to-amber-700',
       type: 'mobile'
     }
   ];
+
+  const activeProject = projects[activeProjectIndex];
+  const goToPreviousProject = () => {
+    setActiveProjectIndex((currentIndex) =>
+      currentIndex === 0 ? projects.length - 1 : currentIndex - 1
+    );
+  };
+
+  const goToNextProject = () => {
+    setActiveProjectIndex((currentIndex) =>
+      currentIndex === projects.length - 1 ? 0 : currentIndex + 1
+    );
+  };
   
 
   return (
@@ -112,19 +120,19 @@ export default function Projects() {
 
       <Header />
 
-      <div className="max-w-7xl mx-auto py-24 px-6 relative z-10">
+      <div className="max-w-7xl mx-auto py-8 px-6 relative z-10">
         {/* Hero Section */}
-        <div className="mb-20">
-          <h1 className="text-6xl md:text-7xl font-black text-white mb-6 leading-tight">
-            Mis <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-violet-400 to-pink-400">Proyectos</span>
+        <div className="mb-8">
+          <h1 className="text-6xl md:text-7xl font-shadows text-white mb-2 leading-tight">
+            Mis Proyectos
           </h1>
 
-          <p className="text-xl text-slate-300 mb-12 max-w-3xl leading-relaxed font-semibold">
+          <p className="text-base text-slate-300 mb-5 leading-relaxed font-source-code-pro">
             Una colección de trabajos que representan mi dedicación a la <span className="text-white">innovación</span>, la <span className="text-white">calidad</span> y el <span className="text-white">impacto</span>.
           </p>
 
           {/* Stats */}
-          <div className="flex flex-wrap gap-8 mb-16">
+          {/* <div className="flex flex-wrap gap-8 mb-16">
             <div>
               <div className="text-4xl font-black text-indigo-400">7+</div>
               <div className="text-sm text-slate-400 uppercase tracking-widest font-bold">Proyectos Completados</div>
@@ -137,23 +145,65 @@ export default function Projects() {
               <div className="text-4xl font-black text-pink-400">100%</div>
               <div className="text-sm text-slate-400 uppercase tracking-widest font-bold">Dedicación</div>
             </div>
-          </div>
+          </div> */}
         </div>
 
-        {/* Grid de Proyectos */}
-        <div className="flex flex-col gap-8">
-          {projects.map(project => (
+        {/* Carrusel de Proyectos */}
+        <div className="relative">
+          <div className="mb-4 flex items-center justify-between gap-4">
+            <p className="font-source-code-pro text-sm text-slate-400">
+              Proyecto {activeProjectIndex + 1} / {projects.length}
+            </p>
+
+            <div className="flex items-center gap-3">
+              <button
+                type="button"
+                onClick={goToPreviousProject}
+                className="flex h-11 w-11 items-center justify-center rounded-full border border-white/20 bg-white/10 text-xl font-bold text-white transition hover:bg-white hover:text-slate-950"
+                aria-label="Proyecto anterior"
+              >
+                &lt;
+              </button>
+
+              <button
+                type="button"
+                onClick={goToNextProject}
+                className="flex h-11 w-11 items-center justify-center rounded-full border border-white/20 bg-white/10 text-xl font-bold text-white transition hover:bg-white hover:text-slate-950"
+                aria-label="Proyecto siguiente"
+              >
+                &gt;
+              </button>
+            </div>
+          </div>
+
+          <div className="min-h-[560px] md:min-h-[430px]">
             <ProjectCard
-              key={project.id}
-              title={project.title}
-              description={project.description}
-              technologies={project.technologies}
-              links={project.links}
-              featured={project.featured}
-              color={project.color}
-              type={project.type}
+              key={activeProject.id}
+              title={activeProject.title}
+              description={activeProject.description}
+              technologies={activeProject.technologies}
+              links={activeProject.links}
+              color={activeProject.color}
+              type={activeProject.type}
             />
-          ))}
+          </div>
+
+          <div className="mt-4 flex flex-wrap items-center justify-center gap-2">
+            {projects.map((project, index) => (
+              <button
+                key={project.id}
+                type="button"
+                onClick={() => setActiveProjectIndex(index)}
+                className={`h-2.5 rounded-full transition-all ${
+                  index === activeProjectIndex
+                    ? 'w-10 bg-white'
+                    : 'w-2.5 bg-white/35 hover:bg-white/70'
+                }`}
+                aria-label={`Ir al proyecto ${index + 1}`}
+                aria-current={index === activeProjectIndex ? 'true' : undefined}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </main>
