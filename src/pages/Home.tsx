@@ -1,9 +1,6 @@
-import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 
 export default function Home() {
-  const navigate = useNavigate();
-
   const skills = [
     { name: 'Flutter', icon: '📱', color: 'from-blue-500 to-cyan-500' },
     { name: 'React', icon: '⚛️', color: 'from-cyan-500 to-blue-500' },
